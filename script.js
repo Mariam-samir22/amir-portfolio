@@ -1,75 +1,86 @@
-// =====================
+// ===============================
 // LOADER
-// =====================
+// ===============================
 
 window.addEventListener("load", () => {
 
     const loader = document.getElementById("loader");
 
-    setTimeout(() => {
-
-        loader.style.opacity = "0";
+    if (loader) {
 
         setTimeout(() => {
 
-            loader.style.display = "none";
+            loader.style.opacity = "0";
 
-        }, 800);
+            setTimeout(() => {
 
-    }, 1800);
+                loader.style.display = "none";
 
-});
+            }, 800);
 
-
-// =====================
-// AOS
-// =====================
-
-AOS.init({
-
-    duration: 1200,
-    once: true,
-    easing: "ease-in-out"
-
-});
-
-
-// =====================
-// BACK TO TOP
-// =====================
-
-const topBtn = document.getElementById("topBtn");
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 500) {
-
-        topBtn.style.display = "flex";
-
-    } else {
-
-        topBtn.style.display = "none";
+        }, 1800);
 
     }
 
 });
 
-topBtn.addEventListener("click", () => {
 
-    window.scrollTo({
+// ===============================
+// AOS
+// ===============================
 
-        top: 0,
+if (typeof AOS !== "undefined") {
 
-        behavior: "smooth"
+    AOS.init({
+
+        duration: 1200,
+        once: true,
+        easing: "ease-in-out"
 
     });
 
-});
+}
 
 
-// =====================
+// ===============================
+// BACK TO TOP
+// ===============================
+
+const topBtn = document.getElementById("topBtn");
+
+if (topBtn) {
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 500) {
+
+            topBtn.style.display = "flex";
+
+        } else {
+
+            topBtn.style.display = "none";
+
+        }
+
+    });
+
+    topBtn.addEventListener("click", () => {
+
+        window.scrollTo({
+
+            top: 0,
+            behavior: "smooth"
+
+        });
+
+    });
+
+}
+
+
+// ===============================
 // ACTIVE NAV LINK
-// =====================
+// ===============================
 
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav ul li a");
@@ -105,9 +116,9 @@ window.addEventListener("scroll", () => {
 });
 
 
-// =====================
+// ===============================
 // VIDEO HOVER
-// =====================
+// ===============================
 
 const videos = document.querySelectorAll(".video-card video");
 
@@ -122,7 +133,6 @@ videos.forEach(video => {
     video.addEventListener("mouseleave", () => {
 
         video.pause();
-
         video.currentTime = 0;
 
     });
@@ -130,13 +140,15 @@ videos.forEach(video => {
 });
 
 
-// =====================
-// NAVBAR BACKGROUND
-// =====================
+// ===============================
+// NAVBAR EFFECT
+// ===============================
 
 const navbar = document.querySelector("nav");
 
 window.addEventListener("scroll", () => {
+
+    if (!navbar) return;
 
     if (window.scrollY > 80) {
 
@@ -153,19 +165,19 @@ window.addEventListener("scroll", () => {
 });
 
 
-// =====================
+// ===============================
 // SMOOTH SCROLL
-// =====================
+// ===============================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     anchor.addEventListener("click", function (e) {
 
-        e.preventDefault();
-
         const target = document.querySelector(this.getAttribute("href"));
 
         if (target) {
+
+            e.preventDefault();
 
             target.scrollIntoView({
 
@@ -178,3 +190,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 
 });
+
+
+// ===============================
+// CURRENT YEAR IN FOOTER
+// ===============================
+
+const year = document.getElementById("year");
+
+if (year) {
+
+    year.textContent = new Date().getFullYear();
+
+}
